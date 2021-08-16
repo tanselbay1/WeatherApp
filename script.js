@@ -1,8 +1,10 @@
+const weatherKey = config.MY_WEATHER_API;
+
 async function getWeather(location, units) {
   try {
     // For Celcius use 'metric' and for Fahrenheit, 'imperial'
     const response = await fetch(
-      `http://api.openweathermap.org/data/2.5/weather?q=${location}&units=${units}&APPID=298f0108207d823442375553239e0577`
+      `http://api.openweathermap.org/data/2.5/weather?q=${location}&units=${units}&APPID=${weatherKey}`
     );
     const data = await response.json();
     console.log(data.weather[0].main);
