@@ -1,4 +1,5 @@
 const weatherKey = config.MY_WEATHER_API;
+const giphyKey = config.GIPHY_API;
 
 async function getWeather(location, units) {
   try {
@@ -13,6 +14,23 @@ async function getWeather(location, units) {
     console.log(err);
   }
 }
+
+async function getGif(weatherCondition) {
+  try {
+    const response = await fetch(
+      `https://api.giphy.com/v1/gifs/translate?api_key=${giphyKey}&s=${weatherCondition}`
+    );
+    const data = await response.json();
+    const imgUrl = await data.data.images.original.url;
+    const showcase = document.getElementById("showcase");
+    showcase.style.backgroundImage = `url(${imgUrl})`;
+    console.log(imgUrl);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+getGif("summer");
 
 // getWeather("Bangkok", "metric");
 
