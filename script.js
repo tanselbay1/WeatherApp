@@ -16,11 +16,8 @@ async function getWeather(location, units) {
     const temp = data.main.temp;
     getGif(weatherLike);
     showWeatherMes(weatherLike, temp);
-    console.log(data.weather[0].icon);
-    console.log(data.weather[0].main);
-    console.log(data.main.temp);
   } catch (err) {
-    console.log(err);
+    alert("Please enter a valid city name!");
   }
 }
 
@@ -39,7 +36,7 @@ async function getGif(weatherCondition) {
 }
 
 function showWeatherMes(weatherLike, temp) {
-  const message = `The Weather App says, it's <u>${weatherLike}</u> and <u>${temp}</u> temp.`;
+  const message = `The Weather App says, it's <u>${weatherLike}</u> and <u>${temp}</u> degree.`;
   const h3el = document.querySelector("h3");
   h3el.innerHTML = message;
 }
@@ -62,7 +59,6 @@ const timeOfTheDay = ((el) => {
       el.innerText += " Night";
       break;
   }
-  console.log(time);
 })(header);
 
 const form = document.querySelector("form");
@@ -73,6 +69,4 @@ form.addEventListener("submit", (event) => {
   const locationData = formData.get("location");
   const unitsData = formData.get("units");
   getWeather(locationData, unitsData);
-  console.log(locationData);
-  console.log(unitsData);
 });
