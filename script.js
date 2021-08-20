@@ -8,6 +8,15 @@ async function getWeather(location, units) {
       `http://api.openweathermap.org/data/2.5/weather?q=${location}&units=${units}&APPID=${weatherKey}`
     );
     const data = await response.json();
+    const iconCode = data.weather[0].icon;
+    const iconEl = document.getElementById("weather-icon");
+    iconEl.src = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
+    iconEl.style.display = "inline";
+    const weatherLike = data.weather[0].main;
+    const temp = data.main.temp;
+    getGif(weatherLike);
+    showWeatherMes(weatherLike, temp);
+    console.log(data.weather[0].icon);
     console.log(data.weather[0].main);
     console.log(data.main.temp);
   } catch (err) {
@@ -24,19 +33,37 @@ async function getGif(weatherCondition) {
     const imgUrl = await data.data.images.original.url;
     const showcase = document.getElementById("showcase");
     showcase.style.backgroundImage = `url(${imgUrl})`;
-    console.log(imgUrl);
   } catch (err) {
     console.log(err);
   }
 }
 
-getGif("summer");
+function showWeatherMes(weatherLike, temp) {
+  const message = `The Weather App says, it's <u>${weatherLike}</u> and <u>${temp}</u> temp.`;
+  const h3el = document.querySelector("h3");
+  h3el.innerHTML = message;
+}
 
-// getWeather("Bangkok", "metric");
-
-// function getUserInput(location, units) {
-//    document
-// }
+const header = document.querySelector("h3");
+const timeOfTheDay = ((el) => {
+  const date = new Date();
+  const time = date.getHours();
+  switch (time) {
+    case time >= 6 || time <= 11:
+      el.innerText += " Morning";
+      break;
+    case time >= 12 || time <= 17:
+      el.innerText += " Afternoon";
+      break;
+    case time >= 18 || time <= 22:
+      el.innerText += " Evening";
+      break;
+    default:
+      el.innerText += " Night";
+      break;
+  }
+  console.log(time);
+})(header);
 
 const form = document.querySelector("form");
 form.addEventListener("submit", (event) => {
