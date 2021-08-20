@@ -1,6 +1,6 @@
 # WeatherApp
 
-The things i've learnt:
+The things i've learned:
 - First time make a design especially for mobile browsers
 - How to work with APIs
 - Fetch data and use it
