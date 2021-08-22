@@ -10,7 +10,10 @@ async function getWeather(location, units) {
   try {
     // For Celcius use 'metric' and for Fahrenheit, 'imperial'
     const response = await fetch(
-      `http://api.openweathermap.org/data/2.5/weather?q=${location}&units=${units}&APPID=${config.weatherKey}`
+      `http://api.openweathermap.org/data/2.5/weather?q=${location}&units=${units}&APPID=${config.weatherKey}`,
+      {
+        mode: "cors",
+      }
     );
     const data = await response.json();
     const iconCode = data.weather[0].icon;
