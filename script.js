@@ -1,11 +1,16 @@
-const weatherKey = config.MY_WEATHER_API;
-const giphyKey = config.GIPHY_API;
+// const weatherKey = config.MY_WEATHER_API;
+// const giphyKey = config.GIPHY_API;
+
+const config = {
+  weatherKey: "94770043fca80e8cc3132e2079b76fe1",
+  giphyKey: "S47IAaHXYcx0t0492hrzZOKubaW5QkwR",
+};
 
 async function getWeather(location, units) {
   try {
     // For Celcius use 'metric' and for Fahrenheit, 'imperial'
     const response = await fetch(
-      `http://api.openweathermap.org/data/2.5/weather?q=${location}&units=${units}&APPID=${weatherKey}`
+      `http://api.openweathermap.org/data/2.5/weather?q=${location}&units=${units}&APPID=${config.weatherKey}`
     );
     const data = await response.json();
     const iconCode = data.weather[0].icon;
@@ -24,7 +29,7 @@ async function getWeather(location, units) {
 async function getGif(weatherCondition) {
   try {
     const response = await fetch(
-      `https://api.giphy.com/v1/gifs/translate?api_key=${giphyKey}&s=${weatherCondition}`
+      `https://api.giphy.com/v1/gifs/translate?api_key=${config.giphyKey}&s=${weatherCondition}`
     );
     const data = await response.json();
     const imgUrl = await data.data.images.original.url;
